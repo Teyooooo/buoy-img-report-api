@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
 from datetime import datetime
+from pytz import timezone
 
 
 app = Flask(__name__)
@@ -14,7 +15,8 @@ def home():
 @app.route('/relay', methods=['POST'])
 def relay():
     data = request.get_json() or request.form.to_dict()
-    data['timestamp'] = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+    ph_tz = timezone('Asia/Manila')
+    data['timestamp'] = datetime.now(ph_tz).strftime("%m/%d/%Y %H:%M:%S")
 
     resp = requests.post(TARGET_URL, json=data)
 
