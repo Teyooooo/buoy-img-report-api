@@ -7,6 +7,10 @@ app = Flask(__name__)
 
 TARGET_URL = "https://buoy-img-report-default-rtdb.asia-southeast1.firebasedatabase.app/.json?auth=d6zIj1Mx25srICB2jgEgjdk1zm5IEe5qrcdZKhRu"
 
+@app.route("/")
+def home():
+    return jsonify({"status": "Buoy Image report API is running"}), 200
+
 @app.route('/relay', methods=['POST'])
 def relay():
     data = request.get_json() or request.form.to_dict()
